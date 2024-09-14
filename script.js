@@ -1,6 +1,6 @@
 function gameBoard () {
-    const rows  = 6;
-    const cols  = 7;
+    const rows  = 3;
+    const cols  = 3;
     const board = [];
     
     for (let i = 0; i < rows; i++) {
@@ -11,10 +11,12 @@ function gameBoard () {
     }
 }
 
-function createPlayers () {
+function createPlayers (player) {
+    
 
+    return
 }
 
-function playGame () {
+function gameController () {
 
 }
