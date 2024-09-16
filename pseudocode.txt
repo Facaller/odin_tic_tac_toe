@@ -3,6 +3,6 @@
 **createPlayer function **
 1   -   Three parameters, two for checking X and O, then one for checking the board
 2   -   Create two constants that define each player (X & O), board variable should have been initialised somewhere after gameBoard function
-3   -  Check if the cell at (x, y) on the board is empty
-4   -  If empty, update the cell with the player's symbol
-5   -  Return success or failure of the move
+3   -   Check if the cell at (x, y) on the board is empty
+4   -   If empty, update the cell with the player's symbol
+5   -   Return success or failure of the move

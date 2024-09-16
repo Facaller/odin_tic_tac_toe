@@ -9,7 +9,8 @@ function gameBoard () {
             board[i].push(null);
         }
     }
-    console.log(board);
+    const getBoard = () => board;
+
 }
 
 function createPlayers (symbol) {
@@ -21,21 +22,56 @@ function gameController () {
 
 }
 
-// I'm a beginner learning JS. I'm trying to build a tic tac toe game to play in the console. I'm only focused on building the game board and creating players for now. The objective is for me to practice factory functions and closures, reducing the amount of global variables. Can you offer me some guidance on where to start. Some pseudo code would be appreciated. Please do not show me any code. I will show you what I have so far, but do not show me any new code. If you have comments on my code that's fine. 
-// function gameBoard () {
-//     const rows  = 3;
-//     const cols  = 3;
+function Cell () {
+    let value = '';
+}
+
+// function gameBoard() {
+//     const rows = 3;
+//     const cols = 3;
 //     const board = [];
-    
+
+//     // Initialize the board
 //     for (let i = 0; i < rows; i++) {
 //         board[i] = [];
 //         for (let j = 0; j < cols; j++) {
-//             board[i].push(Cell());
+//             board[i].push(null);
 //         }
 //     }
+
+//     // Method to get the current board
+//     const getBoard = () => board;
+
+//     // Method to update a specific cell
+//     const setCell = (row, col, value) => {
+//         if (row >= 0 && row < rows && col >= 0 && col < cols) {
+//             board[row][col] = value;
+//         } else {
+//             console.log("Invalid cell coordinates");
+//         }
+//     };
+
+//     // Method to get the value of a specific cell
+//     const getCell = (row, col) => {
+//         if (row >= 0 && row < rows && col >= 0 && col < cols) {
+//             return board[row][col];
+//         } else {
+//             console.log("Invalid cell coordinates");
+//             return null;
+//         }
+//     };
+
+//     // Return the methods to interact with the board
+//     return {
+//         getBoard,
+//         setCell,
+//         getCell
+//     };
 // }
 
-// function createPlayers (player) {
-    
-// }
-// ChatGPT said:
+// // Example usage:
+// const myBoard = gameBoard();
+// myBoard.setCell(1, 2, 'X'); // Sets cell at row 1, col 2 to 'X'
+// console.log(myBoard.getBoard()); // Logs the current state of the board
+// console.log(myBoard.getCell(1, 2)); // Logs the value of cell at row 1, col 2
+
