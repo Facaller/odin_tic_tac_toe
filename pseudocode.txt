@@ -1,5 +1,10 @@
 *** Pseudocode ***
 
+    -   Create the board
+    -   
+
+
+
 **createPlayer function **
 1   -   Three parameters, two for checking X and O, then one for checking the board
 2   -   Create two constants that define each player (X & O), board variable should have been initialised somewhere after gameBoard function

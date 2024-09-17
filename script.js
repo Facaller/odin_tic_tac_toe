@@ -1,21 +1,25 @@
 function gameBoard () {
     const rows  = 3;
-    const cols  = 3;
+    const columns  = 3;
     const board = [];
     
     for (let i = 0; i < rows; i++) {
         board[i] = [];
-        for (let j = 0; j < cols; j++) {
-            board[i].push(null);
+        for (let j = 0; j < columns; j++) {
+            board[i].push(Cell());
         }
     }
     const getBoard = () => board;
+    
 
 }
 
-function createPlayers (symbol) {
-    const x = 'X';
-    const o = 'O';
+function createPlayer (playerSymbol) {
+    const symbol = playerSymbol;
+
+    const getPlayer = () => symbol;
+
+    return {symbol, getPlayer};
 }
 
 function gameController () {
@@ -24,7 +28,21 @@ function gameController () {
 
 function Cell () {
     let value = '';
-}
+
+    const playerSymbol = (symbol) => {
+        value = symbol
+    }
+
+    const getValue = () => value
+
+    return {playerSymbol, getValue}
+};
+
+const playerX = createPlayer('X');
+const playerO = createPlayer('O');
+
+console.log(playerX.getPlayer())
+console.log(playerO.getPlayer())
 
 // function gameBoard() {
 //     const rows = 3;
