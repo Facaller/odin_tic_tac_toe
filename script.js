@@ -6,20 +6,20 @@ function gameBoard () {
     for (let i = 0; i < rows; i++) {
         board[i] = [];
         for (let j = 0; j < columns; j++) {
-            board[i].push(Cell());
+            board[i].push(playerX);
         }
     }
     const getBoard = () => board;
-    
 
+    return {getBoard};
 }
 
-function createPlayer (playerSymbol) {
-    const symbol = playerSymbol;
+function createPlayer (player) {
+    const playerSymbol = player;
 
-    const getPlayer = () => symbol;
+    const getPlayer = () => playerSymbol;
 
-    return {symbol, getPlayer};
+    return {player, playerSymbol, getPlayer};
 }
 
 function gameController () {
@@ -33,63 +33,19 @@ function Cell () {
         value = symbol
     }
 
-    const getValue = () => value
+    const isFilled = () => value !== '';
+    const getValue = () => value;
 
-    return {playerSymbol, getValue}
+    return {playerSymbol, isFilled, getValue}
 };
 
-const playerX = createPlayer('X');
-const playerO = createPlayer('O');
+const cell = Cell();
+const playerX = cell.playerSymbol('X');
 
-console.log(playerX.getPlayer())
-console.log(playerO.getPlayer())
 
-// function gameBoard() {
-//     const rows = 3;
-//     const cols = 3;
-//     const board = [];
+const realBoard = gameBoard()
 
-//     // Initialize the board
-//     for (let i = 0; i < rows; i++) {
-//         board[i] = [];
-//         for (let j = 0; j < cols; j++) {
-//             board[i].push(null);
-//         }
-//     }
 
-//     // Method to get the current board
-//     const getBoard = () => board;
-
-//     // Method to update a specific cell
-//     const setCell = (row, col, value) => {
-//         if (row >= 0 && row < rows && col >= 0 && col < cols) {
-//             board[row][col] = value;
-//         } else {
-//             console.log("Invalid cell coordinates");
-//         }
-//     };
-
-//     // Method to get the value of a specific cell
-//     const getCell = (row, col) => {
-//         if (row >= 0 && row < rows && col >= 0 && col < cols) {
-//             return board[row][col];
-//         } else {
-//             console.log("Invalid cell coordinates");
-//             return null;
-//         }
-//     };
-
-//     // Return the methods to interact with the board
-//     return {
-//         getBoard,
-//         setCell,
-//         getCell
-//     };
-// }
-
-// // Example usage:
-// const myBoard = gameBoard();
-// myBoard.setCell(1, 2, 'X'); // Sets cell at row 1, col 2 to 'X'
-// console.log(myBoard.getBoard()); // Logs the current state of the board
-// console.log(myBoard.getCell(1, 2)); // Logs the value of cell at row 1, col 2
+console.log(realBoard.getBoard())
+console.log(cell.getValue())
 
