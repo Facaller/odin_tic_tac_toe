@@ -9,11 +9,19 @@ function gameBoard () {
             board[i][j] = Cell()
         }
     }
-    const getBoard = () => board;
-    board[0][0].playerSymbol('X')
-    
 
-    return {getBoard};
+    const getBoard = () => board;
+    
+    const setCell = (row, column, symbol) => {
+        const cell = board[row][column];
+        if (!cell.isFilled()) {
+            cell.playerSymbol(symbol)
+        } else {
+            console.log("Cell is filled")
+        }
+    }
+
+    return { getBoard, setCell };
 }
 
 function createPlayer (player) {
@@ -41,13 +49,9 @@ function Cell () {
     return {playerSymbol, isFilled, getValue}
 };
 
-const cell = Cell();
-cell.playerSymbol('Y');
-
-
 const realBoard = gameBoard()
+realBoard.setCell(0, 0, 'X')
+realBoard.setCell(0, 0, 'Y')
 
-
-console.log(realBoard.getBoard())
-console.log(realBoard.getBoard()[0][0].getValue());
-console.log(realBoard.getBoard())
+console.log(realBoard.getBoard()[0][0].getValue())
+console.log(realBoard.getBoard()[0][0].getValue())
