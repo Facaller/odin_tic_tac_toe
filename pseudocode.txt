@@ -24,15 +24,19 @@ Separation of Concerns: You have separated different parts of the game logic (bo
 Use of Methods: The use of methods like playerSymbol, isFilled, and getValue helps in maintaining a clear interface for interacting with the Cell objects.
 
 Suggestions for Next Steps
+*********************
 Set Cell Values:
 
 Create a function in your gameBoard that allows you to set the value of a specific cell based on row and column indices. This function could check if the cell is already filled before allowing a new symbol to be placed.
+
 Player Turn Management:
 
 Implement a way to switch between players (e.g., Player X and Player O) after each turn. You can keep track of the current player in the gameController.
+
 Check for Win Conditions:
 
 Add logic to check if either player has won after each move. You’ll need to check rows, columns, and diagonals for three of the same symbol.
+
 Reset Functionality:
 
 Implement a way to reset the game board for a new game without reloading the page.
@@ -40,15 +44,18 @@ User Interface:
 
 Consider how you want the players to interact with the game. If you’re comfortable, you could build a simple HTML interface where players can click on cells to place their symbols.
 Example Steps for Setting a Specific Cell Value
+
 Create a Method in gameBoard:
 
 Define a method called setCell(row, column, symbol) that checks if the cell at the specified row and column is filled.
+
 Check Cell State:
 
 Use the isFilled method of the cell to determine if it's available for a new symbol.
 Set the Symbol:
 
 If the cell is empty, call the playerSymbol method to set the new symbol.
+
 Switch Players:
 
 After a successful move, toggle the current player.
@@ -66,3 +73,75 @@ setCell(row, column, symbol) {
 }
 Conclusion
 You’re building a solid foundation for your game. Take it step by step, and don’t hesitate to experiment with the code. As you implement these features, you'll deepen your understanding of JavaScript concepts, and the game will come together nicely!
+
+******************
+Step 1: Initialize Game State
+Define Variables: You need variables for the current player, the game board, and a flag to track if the game is over.
+Current Player: Start with player X.
+Game Board: Use the gameBoard function to create the board.
+Game Over Flag: A boolean that indicates whether the game has ended.
+
+Step 2: Player Turn Logic
+Define a Function: Create a function (e.g., makeMove) that takes in the row and column where the player wants to place their symbol.
+Check Game Over: If the game is already over, return early.
+Set Cell: Use the setCell method to attempt placing the current player's symbol in the specified cell.
+Validate Move: If the move was successful, proceed to the next step; otherwise, inform the player that the cell is already filled.
+
+Step 3: Check for Win or Draw
+Define Win Check Function: Create a function that checks if the current player has won.
+Check Rows, Columns, and Diagonals: Verify if any row, column, or diagonal contains the same symbol.
+Check for Draw: If all cells are filled and no one has won, declare a draw.
+
+Step 4: Switch Players
+Toggle Current Player: After a successful move, switch the current player (from X to Y or Y to X).
+
+Step 5: Game Loop
+Main Game Loop: You could create a loop that keeps asking players for their moves until the game ends.
+Prompt for input (row and column).
+Call makeMove with the input.
+After each move, check for a win or draw.
+
+Step 6: End Game Handling
+Game Over Logic: If a player wins or the game is a draw, display a message and reset the game state if needed.
+Example of Pseudo Code Structure
+Initialize game variables.
+Define function makeMove(row, column).
+Check if game is over.
+Try to set the cell.
+If successful, check for win/draw.
+Switch players.
+Loop to prompt player input until game ends.
+Display results and ask if they want to play again.
+
+
+Revised Logic (Pseudocode):
+Here’s how you might structure your makeMove function:
+
+If the game is over, return early.
+Try to set the cell with the current player's symbol.
+If the move was not successful (cell is filled), inform the player.
+If successful, check for a win condition and update the current player.
+
+function gameController () {
+    let currentPlayer = 'X';
+    const board = gameBoard();
+    let gameOver = false;
+
+    function makeMove(row, column) {
+        if (gameOver) {
+            return; // Game is over, exit
+        }
+
+        // Attempt to set the cell
+        const success = board.setCell(row, column, currentPlayer);
+        
+        if (!success) {
+            console.log("Cell is filled, try again."); // Notify the player
+            return; // Exit if the cell was filled
+        }
+
+        // Check for win/draw here (you'll need a function for this)
+        // If not over, switch players
+        currentPlayer = currentPlayer === 'X' ? 'Y' : 'X';
+    }
+}
