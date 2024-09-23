@@ -33,7 +33,8 @@ function createPlayer (player) {
 }
 
 function gameController () {
-    let currentPlayer = 'X';
+    let X = playerX.getPlayer();
+    let O = playerO.getPlayer();
     const board = gameBoard();
     let gameOver = false;
 
@@ -49,9 +50,51 @@ function gameController () {
             return
         }
 
-        currentPlayer = currentPlayer === 'X' ? 'Y' : 'X';
+        if (checkWinner (currentPlayer)) {
+            console.log(`Player ${currentPlayer} wins!`);
+            gameOver = true;
+            return;
+        }
+
+        currentPlayer = currentPlayer === X ? O : X;
     }
+    
+    function checkWinner (currentPlayer) {
+        for (let row = 0; row < 3; row++) {
+            if (board.getBoard()[row][0].getValue() === currentPlayer &&
+                board.getBoard()[row][1].getValue() === currentPlayer &&
+                board.getBoard()[row][2].getValue() === currentPlayer) {
+                return true;
+            }
+        }
+
+        for (let column = 0; column < 3; column++) {
+            if (board.getBoard()[0][column].getValue() === currentPlayer &&
+                board.getBoard()[1][column].getValue() === currentPlayer &&
+                board.getBoard()[2][column].getValue() === currentPlayer) {
+                    return true
+            }
+        }
+
+        if (board.getBoard()[0][0].getValue() === currentPlayer &&
+            board.getBoard()[1][1].getValue() === currentPlayer &&
+            board.getBoard()[2][2].getValue() === currentPlayer) {
+                return true
+        }
+
+        if (board.getBoard()[0][2].getValue() === currentPlayer &&
+            board.getBoard()[1][1].getValue() === currentPlayer &&
+            board.getBoard()[2][0].getValue() === currentPlayer) {
+                return true
+        }
+
+        return false;
+    };
+
+    return { makeMove, checkWinner }
 }
+
+    
 
 function Cell () {
     let value = '';
@@ -66,9 +109,13 @@ function Cell () {
     return { playerSymbol, isFilled, getValue }
 };
 
+const playerX = createPlayer('X')
+const playerO = createPlayer('O')
+
 const realBoard = gameBoard()
 realBoard.setCell(0, 0, 'null')
 realBoard.setCell(0, 1, 'Y')
 
 console.log(realBoard.getBoard()[0][0].getValue())
 console.log(realBoard.getBoard()[0][1].getValue())
+console.log(playerO.getPlayer())
