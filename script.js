@@ -56,6 +56,12 @@ function gameController () {
             return;
         }
 
+        if (checkDraw()) {
+            console.log("It's a draw!");
+            gameOver = true;
+            return
+        }
+
         currentPlayer = currentPlayer === X ? O : X;
     }
     
@@ -87,11 +93,22 @@ function gameController () {
             board.getBoard()[2][0].getValue() === currentPlayer) {
                 return true
         }
-
         return false;
     };
 
-    return { makeMove, checkWinner }
+    function checkDraw () {
+        const boardState = board.getBoard();
+        for (let row = 0; row < 3; row++) {
+            for (let col = 0; col < 3; col++) {
+                if (!boardState[row][col].isFilled()) {
+                    return false
+                }
+            }
+        }
+        return true;
+    }
+
+    return { makeMove, checkWinner, checkDraw }
 }
 
     
@@ -114,7 +131,7 @@ const playerO = createPlayer('O')
 
 const realBoard = gameBoard()
 realBoard.setCell(0, 0, 'null')
-realBoard.setCell(0, 1, 'Y')
+realBoard.setCell(0, 1, 'O')
 
 console.log(realBoard.getBoard()[0][0].getValue())
 console.log(realBoard.getBoard()[0][1].getValue())
