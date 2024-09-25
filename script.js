@@ -40,14 +40,14 @@ function gameController () {
 
     function makeMove (row, column, currentPlayer) {
         if (gameOver === true) {
-            return
+            return;
         }
 
         const success = board.setCell(row, column, currentPlayer);
 
         if (!success) {
             console.log("Cell is filled, try again");
-            return
+            return;
         }
 
         if (checkWinner (currentPlayer)) {
@@ -59,7 +59,7 @@ function gameController () {
         if (checkDraw()) {
             console.log("It's a draw!");
             gameOver = true;
-            return
+            return;
         }
 
         currentPlayer = currentPlayer === X ? O : X;
@@ -78,20 +78,20 @@ function gameController () {
             if (board.getBoard()[0][column].getValue() === currentPlayer &&
                 board.getBoard()[1][column].getValue() === currentPlayer &&
                 board.getBoard()[2][column].getValue() === currentPlayer) {
-                    return true
+                    return true;
             }
         }
 
         if (board.getBoard()[0][0].getValue() === currentPlayer &&
             board.getBoard()[1][1].getValue() === currentPlayer &&
             board.getBoard()[2][2].getValue() === currentPlayer) {
-                return true
+                return true;
         }
 
         if (board.getBoard()[0][2].getValue() === currentPlayer &&
             board.getBoard()[1][1].getValue() === currentPlayer &&
             board.getBoard()[2][0].getValue() === currentPlayer) {
-                return true
+                return true;
         }
         return false;
     };
@@ -108,10 +108,16 @@ function gameController () {
         return true;
     }
 
-    return { makeMove, checkWinner, checkDraw }
-}
+    function nextTurn () {
+        
+        while (gameOver === false) {
+            makeMove(row, column, currentPlayer);
+        }
+        return
+    }
 
-    
+    return { makeMove, checkWinner, checkDraw, nextTurn };
+};
 
 function Cell () {
     let value = '';
