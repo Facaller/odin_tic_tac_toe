@@ -109,7 +109,14 @@ function gameController () {
     }
 
     function nextTurn () {
-        
+        const userInput = prompt('Player move, e.g., 0,1');
+        const [row, column] = userInput.split(',').map(Number);
+        const currentPlayer = playerX.getPlayer();
+
+        if (row < 0 || row > 2 || column < 0 || column > 2) {
+            console.log('Invalid move')
+            userInput;
+        }
         while (gameOver === false) {
             makeMove(row, column, currentPlayer);
         }
