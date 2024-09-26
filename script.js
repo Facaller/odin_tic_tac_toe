@@ -35,34 +35,36 @@ function createPlayer (player) {
 function gameController () {
     let X = playerX.getPlayer();
     let O = playerO.getPlayer();
+    let currentPlayer = X;
     const board = gameBoard();
     let gameOver = false;
 
-    function makeMove (row, column, currentPlayer) {
+    function makeMove (row, column) {
         if (gameOver === true) {
-            return;
+            return false;
         }
 
         const success = board.setCell(row, column, currentPlayer);
 
         if (!success) {
             console.log("Cell is filled, try again");
-            return;
+            return false;
         }
 
         if (checkWinner (currentPlayer)) {
             console.log(`Player ${currentPlayer} wins!`);
             gameOver = true;
-            return;
+            return true;
         }
 
         if (checkDraw()) {
             console.log("It's a draw!");
             gameOver = true;
-            return;
+            return true;
         }
 
         currentPlayer = currentPlayer === X ? O : X;
+        return true;
     }
     
     function checkWinner (currentPlayer) {
@@ -109,18 +111,20 @@ function gameController () {
     }
 
     function nextTurn () {
-        const userInput = prompt('Player move, e.g., 0,1');
-        const [row, column] = userInput.split(',').map(Number);
-        const currentPlayer = playerX.getPlayer();
+        while (!gameOver) {
+            const userInput = prompt('Player move, e.g., 0,1');
+            const [row, column] = userInput.split(',').map(Number);
 
-        if (row < 0 || row > 2 || column < 0 || column > 2) {
-            console.log('Invalid move')
-            userInput;
+            if (row < 0 || row > 2 || column < 0 || column > 2) {
+                console.log('Invalid move')
+                continue;
+            }
+            
+            const moveMade = makeMove(row, column);
+            if (!moveMade) {
+                console.log('Cell filled');
+            }
         }
-        while (gameOver === false) {
-            makeMove(row, column, currentPlayer);
-        }
-        return
     }
 
     return { makeMove, checkWinner, checkDraw, nextTurn };
@@ -139,8 +143,9 @@ function Cell () {
     return { playerSymbol, isFilled, getValue }
 };
 
-const playerX = createPlayer('X')
-const playerO = createPlayer('O')
+const playerX = createPlayer('X');
+const playerO = createPlayer('O');
+const gameStart = gameController().nextTurn();
 
 const realBoard = gameBoard()
 realBoard.setCell(0, 0, 'null')
