@@ -16,8 +16,11 @@ function gameBoard () {
         const cell = board[row][column];
         if (!cell.isFilled()) {
             cell.playerSymbol(symbol)
+            console.log(realBoard.getBoard()[0][0].getValue())
+            return true;
         } else {
             console.log("Cell is filled")
+            return false;
         }
     }
 
@@ -137,7 +140,7 @@ function Cell () {
         value = symbol
     }
 
-    const isFilled = () => value !== '' && value !== null;
+    const isFilled = () => !!value;
     const getValue = () => value;
 
     return { playerSymbol, isFilled, getValue }
@@ -145,12 +148,15 @@ function Cell () {
 
 const playerX = createPlayer('X');
 const playerO = createPlayer('O');
-const gameStart = gameController().nextTurn();
+
 
 const realBoard = gameBoard()
-realBoard.setCell(0, 0, 'null')
-realBoard.setCell(0, 1, 'O')
+const gameStart = gameController().nextTurn()
+realBoard.setCell(0, 0, null)
+realBoard.setCell(0, 1, 'X')
+
 
 console.log(realBoard.getBoard()[0][0].getValue())
 console.log(realBoard.getBoard()[0][1].getValue())
-console.log(playerO.getPlayer())
+console.log(realBoard.getBoard()[0][0].isFilled())
+console.log(realBoard.getBoard()[0][1].isFilled())
