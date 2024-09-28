@@ -16,7 +16,6 @@ function gameBoard () {
         const cell = board[row][column];
         if (!cell.isFilled()) {
             cell.playerSymbol(symbol)
-            console.log(realBoard.getBoard()[0][0].getValue())
             return true;
         } else {
             console.log("Cell is filled")
@@ -35,9 +34,22 @@ function createPlayer (player) {
     return { player, playerSymbol, getPlayer };
 }
 
+function Cell () {
+    let value = '';
+
+    const playerSymbol = (symbol) => {
+        value = symbol
+    }
+
+    const isFilled = () => !!value;
+    const getValue = () => value;
+
+    return { playerSymbol, isFilled, getValue }
+};
+
 function gameController () {
-    let X = playerX.getPlayer();
-    let O = playerO.getPlayer();
+    let X = createPlayer('X').getPlayer();
+    let O = createPlayer('O').getPlayer();
     let currentPlayer = X;
     const board = gameBoard();
     let gameOver = false;
@@ -48,6 +60,7 @@ function gameController () {
         }
 
         const success = board.setCell(row, column, currentPlayer);
+        console.log("Current Player:", currentPlayer);
 
         if (!success) {
             console.log("Cell is filled, try again");
@@ -126,6 +139,7 @@ function gameController () {
             const moveMade = makeMove(row, column);
             if (!moveMade) {
                 console.log('Cell filled');
+                console.log(board.getBoard()[0][0].getValue())
             }
         }
     }
@@ -133,30 +147,6 @@ function gameController () {
     return { makeMove, checkWinner, checkDraw, nextTurn };
 };
 
-function Cell () {
-    let value = '';
+const gameStart = gameController()
 
-    const playerSymbol = (symbol) => {
-        value = symbol
-    }
-
-    const isFilled = () => !!value;
-    const getValue = () => value;
-
-    return { playerSymbol, isFilled, getValue }
-};
-
-const playerX = createPlayer('X');
-const playerO = createPlayer('O');
-
-
-const realBoard = gameBoard()
-const gameStart = gameController().nextTurn()
-realBoard.setCell(0, 0, null)
-realBoard.setCell(0, 1, 'X')
-
-
-console.log(realBoard.getBoard()[0][0].getValue())
-console.log(realBoard.getBoard()[0][1].getValue())
-console.log(realBoard.getBoard()[0][0].isFilled())
-console.log(realBoard.getBoard()[0][1].isFilled())
+console.log(gameStart.nextTurn())
