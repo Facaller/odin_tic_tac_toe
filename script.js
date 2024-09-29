@@ -23,7 +23,11 @@ function gameBoard () {
         }
     }
 
-    return { getBoard, setCell };
+    function resetBoard () {
+        
+    }
+
+    return { getBoard, setCell resetBoard };
 }
 
 function createPlayer (player) {
@@ -70,6 +74,7 @@ function gameController () {
         if (checkWinner (currentPlayer)) {
             console.log(`Player ${currentPlayer} wins!`);
             gameOver = true;
+            reset();
             return true;
         }
 
@@ -144,7 +149,27 @@ function gameController () {
         }
     }
 
-    return { makeMove, checkWinner, checkDraw, nextTurn };
+    function reset() {
+        if (gameOver) {
+            let newGame;
+            do {
+                newGame = prompt('New game, yes or no?').toLowerCase();
+                if (newGame !== 'yes' && newGame !== 'no') {
+                    console.log('Answer yes or no');
+                }
+            } while (newGame !== 'yes' && newGame !== 'no')
+            
+            if (newGame === 'no') {
+                return;
+            } else if (newGame === 'yes') {
+                board = [];
+                gameOver = false;
+                gameStart.nextTurn();
+            }
+        }
+    }
+
+    return { makeMove, checkWinner, checkDraw, nextTurn, reset };
 };
 
 const gameStart = gameController()
