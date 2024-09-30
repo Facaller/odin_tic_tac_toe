@@ -1,14 +1,17 @@
-function gameBoard () {
+(() => {
+    function gameBoard () {
     const rows  = 3;
     const columns  = 3;
     const board = [];
     
-    for (let i = 0; i < rows; i++) {
-        board[i] = [];
-        for (let j = 0; j < columns; j++) {
-            board[i][j] = Cell()
-        }
-    }
+    const initialiseBoard = () => {
+        for (let i = 0; i < rows; i++) {
+            board[i] = [];
+                for (let j = 0; j < columns; j++) {
+                    board[i][j] = Cell()
+                }
+            }
+        };
 
     const getBoard = () => board;
     
@@ -23,11 +26,13 @@ function gameBoard () {
         }
     }
 
-    function resetBoard () {
-        
-    }
+    const resetBoard = () => {
+        initialiseBoard();
+    };
 
-    return { getBoard, setCell resetBoard };
+    resetBoard();
+
+    return { getBoard, setCell, resetBoard };
 }
 
 function createPlayer (player) {
@@ -58,7 +63,7 @@ function gameController () {
     const board = gameBoard();
     let gameOver = false;
 
-    function makeMove (row, column) {
+    const makeMove = (row, column) => {
         if (gameOver === true) {
             return false;
         }
@@ -74,7 +79,7 @@ function gameController () {
         if (checkWinner (currentPlayer)) {
             console.log(`Player ${currentPlayer} wins!`);
             gameOver = true;
-            reset();
+            resetGame();
             return true;
         }
 
@@ -88,7 +93,7 @@ function gameController () {
         return true;
     }
     
-    function checkWinner (currentPlayer) {
+    const checkWinner = (currentPlayer) => {
         for (let row = 0; row < 3; row++) {
             if (board.getBoard()[row][0].getValue() === currentPlayer &&
                 board.getBoard()[row][1].getValue() === currentPlayer &&
@@ -119,7 +124,7 @@ function gameController () {
         return false;
     };
 
-    function checkDraw () {
+    const checkDraw = () => {
         const boardState = board.getBoard();
         for (let row = 0; row < 3; row++) {
             for (let col = 0; col < 3; col++) {
@@ -131,12 +136,12 @@ function gameController () {
         return true;
     }
 
-    function nextTurn () {
+    const nextTurn = () => {
         while (!gameOver) {
             const userInput = prompt('Player move, e.g., 0,1');
             const [row, column] = userInput.split(',').map(Number);
 
-            if (row < 0 || row > 2 || column < 0 || column > 2) {
+            if (isNaN(row) || isNaN(column) || row < 0 || row > 2 || column < 0 || column > 2) {
                 console.log('Invalid move')
                 continue;
             }
@@ -149,7 +154,7 @@ function gameController () {
         }
     }
 
-    function reset() {
+    const resetGame = () => {
         if (gameOver) {
             let newGame;
             do {
@@ -162,16 +167,16 @@ function gameController () {
             if (newGame === 'no') {
                 return;
             } else if (newGame === 'yes') {
-                board = [];
                 gameOver = false;
+                board.resetBoard();
                 gameStart.nextTurn();
             }
         }
     }
 
-    return { makeMove, checkWinner, checkDraw, nextTurn, reset };
+    return { makeMove, checkWinner, checkDraw, nextTurn, resetGame };
 };
 
 const gameStart = gameController()
-
 console.log(gameStart.nextTurn())
+})();
