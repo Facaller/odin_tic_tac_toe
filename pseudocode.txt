@@ -37,3 +37,27 @@ Additional Tips
 Make sure to structure your HTML and CSS for clarity; a well-organized layout will make it easier to work with.
 Comment your code to remind yourself of what each part does, especially as you start adding more functionality.
 Consider using browser developer tools to inspect your elements and debug any issues that arise.
+
+************************
+
+Step 1: Prepare Your HTML
+Structure: Ensure you have a grid layout in your HTML where the Tic Tac Toe board will be displayed. You might have a <div> for each cell, which will represent the grid.
+Identifiers: Assign IDs or classes to these cells so you can easily reference them in your JavaScript. For example, you might name them like cell-0-0, cell-0-1, ..., cell-2-2.
+Step 2: Access the Gameboard State
+Get Board State: Inside displayGame, use the getBoard method from your gameBoard function to retrieve the current state of the board.
+Step 3: Loop Through the Gameboard
+Iterate: Use nested loops to go through each row and column of the gameboard array.
+The outer loop will iterate through the rows.
+The inner loop will iterate through the columns.
+Step 4: Update the HTML Elements
+Identify Each Cell: For each cell in the gameboard, construct the corresponding HTML element's ID (or class).
+
+For example, for cell at row 0, column 0, you might use document.getElementById('cell-0-0').
+Update Content: Check the value of the cell (using getValue() method) and update the inner HTML or text of the identified element to show "X", "O", or be empty if it’s not filled.
+
+Step 5: Integrate the Function
+Call displayGame: Whenever a move is made (i.e., after makeMove is called in your game controller), ensure you call displayGame to refresh the HTML and reflect the latest game state.
+Step 6: Handling Resets
+Reset Handling: If the game is reset, make sure to call displayGame again so that the board displays empty cells.
+Step 7: Additional Features (Optional)
+Winning/Draw State: You could enhance displayGame to also visually indicate when a player wins or when there's a draw. This might involve changing the styling of the cells or displaying a message.

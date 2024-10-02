@@ -177,7 +177,7 @@
         return { makeMove, checkWinner, checkDraw, nextTurn, resetGame };
     };
 
-    function display () {
+    function displayGame () {
         
     }
 
