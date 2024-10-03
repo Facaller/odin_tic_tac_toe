@@ -56,11 +56,10 @@
         return { playerSymbol, isFilled, getValue }
     };
 
-    function gameController () {
+    function gameController (board) {
         let X = createPlayer('X').getPlayer();
         let O = createPlayer('O').getPlayer();
         let currentPlayer = X;
-        const board = gameBoard();
         let gameOver = false;
 
         const makeMove = (row, column) => {
@@ -177,10 +176,18 @@
         return { makeMove, checkWinner, checkDraw, nextTurn, resetGame };
     };
 
-    function displayGame () {
-        
+    function displayGame (board) {
+        let currentBoard = board.getBoard();
+
+        for (let row = 0; row < 3; row++) {
+            for (let col = 0; col < 3; col++) {
+                let 
+            }
+        }
     }
 
-    // const gameStart = gameController()
-    // console.log(gameStart.nextTurn())
+    const boardInstance = gameBoard();
+
+    // const gameStart = gameController(boardInstance);
+    // console.log(gameStart.nextTurn());
 })();
