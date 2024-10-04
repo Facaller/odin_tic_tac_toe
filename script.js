@@ -181,12 +181,23 @@
 
         for (let row = 0; row < 3; row++) {
             for (let col = 0; col < 3; col++) {
-                let 
+                const cellID = `${row}${col}`;
+                const cellElement = document.getElementById(cellID);
+                const cellValue = Cell().getValue().cellElement;
+// create if statement here for X, O, not filled that updates textcontent of cell
+                if (!test) {
+                    cellElement.textContent = 'M'
+                    console.log(cellElement);
+                }
+                
             }
         }
+
+        
     }
 
     const boardInstance = gameBoard();
+    console.log(displayGame(boardInstance));
 
     // const gameStart = gameController(boardInstance);
     // console.log(gameStart.nextTurn());
