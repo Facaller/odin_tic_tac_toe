@@ -32,6 +32,10 @@
     background-color: #FFF8E8;
 }
 
+button:hover {
+    cursor: pointer;
+}
+
 .grid-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

@@ -183,19 +183,21 @@
             for (let col = 0; col < 3; col++) {
                 const cellID = `${row}${col}`;
                 const cellElement = document.getElementById(cellID);
-                const cellValue = Cell().getValue().cellElement;
+                const cellValue = currentBoard[row][col].getValue();
 // create if statement here for X, O, not filled that updates textcontent of cell
-                if (!test) {
-                    cellElement.textContent = 'M'
-                    console.log(cellElement);
+                if (cellElement) {
+                    cellElement.textContent = 'u'
+                    console.log(`${cellValue} test`);
                 }
-                
+                cellElement.addEventListener('click', () => {
+                    board.setCell(row, col, )
+                })    
             }
+            
         }
 
         
     }
-
     const boardInstance = gameBoard();
     console.log(displayGame(boardInstance));
 
