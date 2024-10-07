@@ -47,6 +47,8 @@ button:hover {
     font: 6rem 'dalekpinpoint';
     border: 1px solid #BF3100;
     display: flex;
+    min-width: 200px;
+    min-height: 200px;
     width: 100%;
     height: 100%; 
     align-items: center;

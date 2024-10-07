@@ -173,33 +173,39 @@
             }
         }
 
-        return { makeMove, checkWinner, checkDraw, nextTurn, resetGame };
+        return { currentPlayer, makeMove, checkWinner, checkDraw, nextTurn, resetGame };
     };
 
-    function displayGame (board) {
-        let currentBoard = board.getBoard();
+    function displayGame (board, gameInstance) {
+        const renderGame = () => {
+            const currentBoard = board.getBoard();
+            for (let row = 0; row < 3; row++) {
+                for (let col = 0; col < 3; col++) {
+                    const cellID = `${row}${col}`;
+                    const cellElement = document.getElementById(cellID);
+                    const cellValue = currentBoard[row][col].getValue();
 
-        for (let row = 0; row < 3; row++) {
-            for (let col = 0; col < 3; col++) {
-                const cellID = `${row}${col}`;
-                const cellElement = document.getElementById(cellID);
-                const cellValue = currentBoard[row][col].getValue();
-// create if statement here for X, O, not filled that updates textcontent of cell
-                if (cellElement) {
-                    cellElement.textContent = 'u'
-                    console.log(`${cellValue} test`);
+                    cellElement.textContent = cellValue || '';
+
+                    const oldElement = cellElement.cloneNode(true);
+                    oldElement.addEventListener('click', () => {
+                        if (!cellValue) {
+                            const moveMade = gameInstance.makeMove(row, col);
+                            if (moveMade) {
+                                renderGame();
+                            }
+                        }
+                    });
+                    cellElement.replaceWith(oldElement);
                 }
-                cellElement.addEventListener('click', () => {
-                    board.setCell(row, col, )
-                })    
             }
-            
-        }
-
-        
-    }
+        };
+    renderGame();
+}
     const boardInstance = gameBoard();
-    console.log(displayGame(boardInstance));
+    const gameInstance = gameController();
+    displayGame (boardInstance, gameInstance);
+    console.log(displayGame(boardInstance, gameInstance));
 
     // const gameStart = gameController(boardInstance);
     // console.log(gameStart.nextTurn());
