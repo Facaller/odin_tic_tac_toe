@@ -8,7 +8,7 @@
             for (let i = 0; i < rows; i++) {
                 board[i] = [];
                     for (let j = 0; j < columns; j++) {
-                        board[i][j] = Cell()
+                        board[i][j] = Cell();
                     }
                 }
             };
@@ -134,13 +134,18 @@
             }
             return true;
         }
-
+// start here, need to remove prompts
         const nextTurn = () => {
             while (!gameOver) {
                 const userInput = prompt('Player move, e.g., 0,1');
                 const [row, column] = userInput.split(',').map(Number);
 
-                if (isNaN(row) || isNaN(column) || row < 0 || row > 2 || column < 0 || column > 2) {
+                if (isNaN(row) 
+                    || isNaN(column) 
+                    || row < 0 
+                    || row > 2 
+                    || column < 0 
+                    || column > 2) {
                     console.log('Invalid move')
                     continue;
                 }
@@ -168,7 +173,7 @@
                 } else if (newGame === 'yes') {
                     gameOver = false;
                     board.resetBoard();
-                    gameStart.nextTurn();
+                    gameInstance.nextTurn();
                 }
             }
         }
@@ -177,8 +182,8 @@
     };
 
     function displayGame (board, gameInstance) {
+        const currentBoard = board.getBoard();
         const renderGame = () => {
-            const currentBoard = board.getBoard();
             for (let row = 0; row < 3; row++) {
                 for (let col = 0; col < 3; col++) {
                     const cellID = `${row}${col}`;
@@ -187,8 +192,7 @@
 
                     cellElement.textContent = cellValue || '';
 
-                    const oldElement = cellElement.cloneNode(true);
-                    oldElement.addEventListener('click', () => {
+                    cellElement.addEventListener('click', () => {
                         if (!cellValue) {
                             const moveMade = gameInstance.makeMove(row, col);
                             if (moveMade) {
@@ -196,17 +200,16 @@
                             }
                         }
                     });
-                    cellElement.replaceWith(oldElement);
                 }
             }
         };
     renderGame();
+
+    return { renderGame }
 }
     const boardInstance = gameBoard();
-    const gameInstance = gameController();
+    const gameInstance = gameController(boardInstance);
     displayGame (boardInstance, gameInstance);
-    console.log(displayGame(boardInstance, gameInstance));
-
     // const gameStart = gameController(boardInstance);
     // console.log(gameStart.nextTurn());
 })();
