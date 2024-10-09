@@ -52,8 +52,11 @@
 
         const isFilled = () => !!value;
         const getValue = () => value;
+        const reset = () => {
+            value = '';
+        }
 
-        return { playerSymbol, isFilled, getValue }
+        return { playerSymbol, isFilled, getValue, reset }
     };
 
     function gameController (board) {
@@ -137,22 +140,9 @@
 // start here, need to remove prompts
         const nextTurn = () => {
             while (!gameOver) {
-                const userInput = prompt('Player move, e.g., 0,1');
-                const [row, column] = userInput.split(',').map(Number);
-
-                if (isNaN(row) 
-                    || isNaN(column) 
-                    || row < 0 
-                    || row > 2 
-                    || column < 0 
-                    || column > 2) {
-                    console.log('Invalid move')
-                    continue;
-                }
                 
                 const moveMade = makeMove(row, column);
                 if (!moveMade) {
-                    console.log('Cell filled');
                     console.log(board.getBoard()[0][0].getValue())
                 }
             }
@@ -160,21 +150,22 @@
 
         const resetGame = () => {
             if (gameOver) {
-                let newGame;
-                do {
-                    newGame = prompt('New game, yes or no?').toLowerCase();
-                    if (newGame !== 'yes' && newGame !== 'no') {
-                        console.log('Answer yes or no');
-                    }
-                } while (newGame !== 'yes' && newGame !== 'no')
+
+                // let newGame;
+                // do {
+                //     newGame = prompt('New game, yes or no?').toLowerCase();
+                //     if (newGame !== 'yes' && newGame !== 'no') {
+                //         console.log('Answer yes or no');
+                //     }
+                // } while (newGame !== 'yes' && newGame !== 'no')
                 
-                if (newGame === 'no') {
-                    return;
-                } else if (newGame === 'yes') {
-                    gameOver = false;
-                    board.resetBoard();
-                    gameInstance.nextTurn();
-                }
+                // if (newGame === 'no') {
+                //     return;
+                // } else if (newGame === 'yes') {
+                //     gameOver = false;
+                //     board.resetBoard();
+                //     gameInstance.nextTurn();
+                // }
             }
         }
 
@@ -183,11 +174,11 @@
 
     function displayGame (board, gameInstance) {
         const currentBoard = board.getBoard();
+        
         const renderGame = () => {
             for (let row = 0; row < 3; row++) {
                 for (let col = 0; col < 3; col++) {
-                    const cellID = `${row}${col}`;
-                    const cellElement = document.getElementById(cellID);
+                    const cellElement = document.getElementById(`${row}${col}`);
                     const cellValue = currentBoard[row][col].getValue();
 
                     cellElement.textContent = cellValue || '';
@@ -203,9 +194,30 @@
                 }
             }
         };
-    renderGame();
 
-    return { renderGame }
+        const clearBoard = () => {
+            const restartGame = document.getElementById('restartGame');
+
+            if (!restartGame) {
+                return;
+            }
+            
+            restartGame.addEventListener('click', () => {
+                for (let row = 0; row < 3; row++) {
+                    for(let col = 0; col < 3; col++) {
+                        board.getBoard()[row][col].reset();
+                    }
+                }
+                renderGame();
+                console.log('this works')
+            });
+            
+        }
+
+    renderGame();
+    clearBoard();
+
+    return { renderGame, clearBoard }
 }
     const boardInstance = gameBoard();
     const gameInstance = gameController(boardInstance);
