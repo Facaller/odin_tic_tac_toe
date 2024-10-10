@@ -7,57 +7,16 @@
 4   -   If empty, update the cell with the player's symbol
 5   -   Return success or failure of the move
 
-Step-by-Step Guide
-Understand Your Gameboard Structure:
+Check Game Status: Ensure that the method is triggered only when a game is over. If gameOver is false, there’s no need to reset the game.
 
-Your gameboard is likely an array (like a 2D array) that holds the values for each cell (like "X", "O", or an empty string). Before you start rendering to the DOM, make sure you understand how this array is structured and how the values represent the game state.
-Create an Object for DOM Logic:
+Reset Board State: Call the resetBoard method from the board instance to clear the board's state.
 
-Think of this object as a controller for all the interactions with the DOM. This means it will have methods to update the display, such as showing the current state of the gameboard.
-Set Up HTML Elements:
+Reinitialize Players: Reset the currentPlayer to the starting player (usually 'X').
 
-Make sure you have the appropriate HTML structure to display your gameboard. This could be a grid made up of <div> elements, <table>, or any structure that allows for easy manipulation. Each cell should have a unique identifier (like an id or data-attribute) so you can easily access and update it later.
-Write the Render Function:
+Reset Game Over Flag: Set gameOver back to false to allow new moves.
 
-The purpose of this function is to take the current state of your gameboard array and update the HTML to reflect that state.
-Inside this function, loop through your gameboard array. For each value (like "X" or "O"), find the corresponding HTML element using its identifier. You can use methods like document.getElementById() or querySelector() to access the elements.
-Update the DOM:
+Restart Game Logic: After resetting, you might want to invoke nextTurn() or another method to prepare the game for a new round.
 
-For each cell in the gameboard, set the text or inner HTML of the corresponding DOM element to the value from the array. If the value is an empty string, you might want to leave the cell empty or display a placeholder.
-Test with Static Values:
+User Interaction: If you want to allow users to choose to play again, consider how you’ll handle this without using prompts. You might replace that part with a simple button click that triggers the reset logic.
 
-Initially, you can hardcode some values into your gameboard array (like all "X"s and "O"s) to see if the rendering function works correctly. This way, you can verify that the DOM elements update as expected.
-Linking Game Logic to DOM:
-
-Once the rendering function works with static values, think about how to connect your game logic (like checking for wins or turns) to the DOM. For instance, when a player makes a move, you will update the gameboard array and then call the render function to update the display.
-Iterate and Improve:
-
-As you get this basic rendering working, you can start to improve the user experience. This might include adding event listeners to the cells to handle player clicks, resetting the game, or displaying messages like “Player X wins!”
-Additional Tips
-Make sure to structure your HTML and CSS for clarity; a well-organized layout will make it easier to work with.
-Comment your code to remind yourself of what each part does, especially as you start adding more functionality.
-Consider using browser developer tools to inspect your elements and debug any issues that arise.
-
-************************
-
-Step 1: Prepare Your HTML
-Structure: Ensure you have a grid layout in your HTML where the Tic Tac Toe board will be displayed. You might have a <div> for each cell, which will represent the grid.
-Identifiers: Assign IDs or classes to these cells so you can easily reference them in your JavaScript. For example, you might name them like cell-0-0, cell-0-1, ..., cell-2-2.
-Step 2: Access the Gameboard State
-Get Board State: Inside displayGame, use the getBoard method from your gameBoard function to retrieve the current state of the board.
-Step 3: Loop Through the Gameboard
-Iterate: Use nested loops to go through each row and column of the gameboard array.
-The outer loop will iterate through the rows.
-The inner loop will iterate through the columns.
-Step 4: Update the HTML Elements
-Identify Each Cell: For each cell in the gameboard, construct the corresponding HTML element's ID (or class).
-
-For example, for cell at row 0, column 0, you might use document.getElementById('cell-0-0').
-Update Content: Check the value of the cell (using getValue() method) and update the inner HTML or text of the identified element to show "X", "O", or be empty if it’s not filled.
-
-Step 5: Integrate the Function
-Call displayGame: Whenever a move is made (i.e., after makeMove is called in your game controller), ensure you call displayGame to refresh the HTML and reflect the latest game state.
-Step 6: Handling Resets
-Reset Handling: If the game is reset, make sure to call displayGame again so that the board displays empty cells.
-Step 7: Additional Features (Optional)
-Winning/Draw State: You could enhance displayGame to also visually indicate when a player wins or when there's a draw. This might involve changing the styling of the cells or displaying a message.
+Update the Display: Make sure to update the UI after resetting the game state so that players see the cleared board.

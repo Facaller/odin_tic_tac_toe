@@ -151,21 +151,7 @@
         const resetGame = () => {
             if (gameOver) {
 
-                // let newGame;
-                // do {
-                //     newGame = prompt('New game, yes or no?').toLowerCase();
-                //     if (newGame !== 'yes' && newGame !== 'no') {
-                //         console.log('Answer yes or no');
-                //     }
-                // } while (newGame !== 'yes' && newGame !== 'no')
-                
-                // if (newGame === 'no') {
-                //     return;
-                // } else if (newGame === 'yes') {
-                //     gameOver = false;
-                //     board.resetBoard();
-                //     gameInstance.nextTurn();
-                // }
+                gameOver = false;
             }
         }
 
@@ -208,8 +194,8 @@
                         board.getBoard()[row][col].reset();
                     }
                 }
+                board.resetBoard();
                 renderGame();
-                console.log('this works')
             });
             
         }
