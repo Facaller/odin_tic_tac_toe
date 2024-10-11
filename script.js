@@ -52,11 +52,11 @@
 
         const isFilled = () => !!value;
         const getValue = () => value;
-        const reset = () => {
+        const resetValue = () => {
             value = '';
         }
 
-        return { playerSymbol, isFilled, getValue, reset }
+        return { playerSymbol, isFilled, getValue, resetValue }
     };
 
     function gameController (board) {
@@ -81,7 +81,7 @@
             if (checkWinner (currentPlayer)) {
                 console.log(`Player ${currentPlayer} wins!`);
                 gameOver = true;
-                resetGame();
+                
                 return true;
             }
 
@@ -137,10 +137,9 @@
             }
             return true;
         }
-// start here, need to remove prompts
+
         const nextTurn = () => {
             while (!gameOver) {
-                
                 const moveMade = makeMove(row, column);
                 if (!moveMade) {
                     console.log(board.getBoard()[0][0].getValue())
@@ -149,10 +148,9 @@
         }
 
         const resetGame = () => {
-            if (gameOver) {
-
+                board.resetBoard();
+                currentPlayer = X;
                 gameOver = false;
-            }
         }
 
         return { currentPlayer, makeMove, checkWinner, checkDraw, nextTurn, resetGame };
@@ -191,13 +189,12 @@
             restartGame.addEventListener('click', () => {
                 for (let row = 0; row < 3; row++) {
                     for(let col = 0; col < 3; col++) {
-                        board.getBoard()[row][col].reset();
+                        board.getBoard()[row][col].resetValue();
                     }
                 }
-                board.resetBoard();
+                gameInstance.resetGame();
                 renderGame();
             });
-            
         }
 
     renderGame();
@@ -208,6 +205,4 @@
     const boardInstance = gameBoard();
     const gameInstance = gameController(boardInstance);
     displayGame (boardInstance, gameInstance);
-    // const gameStart = gameController(boardInstance);
-    // console.log(gameStart.nextTurn());
 })();
