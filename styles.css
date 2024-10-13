@@ -39,42 +39,55 @@ body, html {
     background-color: #FFFFFF;
 }
 
-.header {
-    font: 2rem 'dalekpinpoint';
-    width: 100%;
-    padding: 20px;
-    border-bottom: 3px solid black;
-    background-color: #BF3100;
-    text-align: center;
-}
-
 main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-around;
+    height: 100%;
+}
+
+.playerTurnElement {
+    font: 2rem 'dalekpinpoint';
 }
 
 button {
     background-color: #FFF8E8;
     transition: background-color 0.3s ease;
-    padding: 5px 30px; /* Optional: Add some padding */
+    padding: 5px 20px; /* Optional: Add some padding */
 }
 
 button:hover {
     cursor: pointer;
-    background-color: #FFD700
+    background-color: #BF3100
+}
+
+.header, .footer {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+}
+
+.header {
+    font: 2rem 'dalekpinpoint';
+    border-bottom: 3px solid black;
+    background-color: #BF3100;
+}
+
+.footer {
+    font: 1rem 'dalekpinpoint';
 }
 
 .grid-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    border: 2px solid #BF3100;
+    border: 2px solid #000000;
 }
 
 .cell {
     font: 4rem 'dalekpinpoint';
-    border: 1px solid #BF3100;
+    border: 1px solid #000000;
     display: flex;
     min-width: 140px;
     min-height: 140px;
@@ -85,6 +98,12 @@ button:hover {
 }
 
 .restart {
-    font: 3rem 'dalekpinpoint';
-    border: 1px solid #BF3100;
+    font: 2rem 'dalekpinpoint';
+    border: 2px solid #000000;
+    background-color: #BF3100;
+}
+
+.restart:hover {
+    color: #BF3100;
+    background-color: #FFF8E8;
 }

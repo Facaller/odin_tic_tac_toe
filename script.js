@@ -153,7 +153,7 @@
                 gameOver = false;
         }
 
-        return { currentPlayer, makeMove, checkWinner, checkDraw, nextTurn, resetGame };
+        return {X, O, currentPlayer, makeMove, checkWinner, checkDraw, nextTurn, resetGame };
     };
 
     function displayGame (board, gameInstance) {
@@ -172,11 +172,13 @@
                             const moveMade = gameInstance.makeMove(row, col);
                             if (moveMade) {
                                 renderGame();
+                                playerTurn();
                             }
                         }
                     });
                 }
             }
+            playerTurn();
         };
 
         const clearBoard = () => {
@@ -197,10 +199,18 @@
             });
         }
 
+        const playerTurn = () => {
+            const playerTurnElement = document.getElementById('playerTurn');
+
+            playerTurnElement.textContent = `Player ${gameInstance.currentPlayer}'s turn`;
+
+        }
+
     renderGame();
     clearBoard();
+    playerTurn();
 
-    return { renderGame, clearBoard }
+    return { renderGame, clearBoard, playerTurn }
 }
     const boardInstance = gameBoard();
     const gameInstance = gameController(boardInstance);
