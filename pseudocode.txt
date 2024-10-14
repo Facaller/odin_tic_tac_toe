@@ -7,16 +7,44 @@
 4   -   If empty, update the cell with the player's symbol
 5   -   Return success or failure of the move
 
-Check Game Status: Ensure that the method is triggered only when a game is over. If gameOver is false, there’s no need to reset the game.
+function createPlayer(player) {
+    return player; // Return just the symbol
+}
 
-Reset Board State: Call the resetBoard method from the board instance to clear the board's state.
+Change how players are created
 
-Reinitialize Players: Reset the currentPlayer to the starting player (usually 'X').
+Issues and Fixes
+Updating Current Player: In your makeMove function, you are updating currentPlayer, but you’re not reflecting this change in the gameInstance object that's used to call updateTurn.
 
-Reset Game Over Flag: Set gameOver back to false to allow new moves.
+Displaying Correct Player: In your updateTurn function, the parameter currentPlayer should be a string like 'X' or 'O', but you are currently passing the player object directly.
 
-Restart Game Logic: After resetting, you might want to invoke nextTurn() or another method to prepare the game for a new round.
+Changes to Implement
+Update the makeMove function to ensure that you're calling updateTurn with the correct symbol.
 
-User Interaction: If you want to allow users to choose to play again, consider how you’ll handle this without using prompts. You might replace that part with a simple button click that triggers the reset logic.
+Modify the currentPlayer reference in the gameController to return the correct symbol when required.
 
-Update the Display: Make sure to update the UI after resetting the game state so that players see the cleared board.
+Here’s how you can update your code:
+
+Update the makeMove Function
+Instead of returning the player object from createPlayer, return the symbol directly. Then, make sure you pass the right value to updateTurn
+
+function gameController(board) {
+    let X = createPlayer('X');
+    let O = createPlayer('O');
+    let currentPlayer = X; // Use symbols directly
+    let gameOver = false;
+
+    const makeMove = (row, column) => {
+        // ... existing logic
+        currentPlayer = currentPlayer === X ? O : X;
+        updateTurn(currentPlayer); // Now this works correctly
+        return true;
+    };
+    // ... remaining gameController logic
+}
+
+// In displayGame:
+const renderGame = () => {
+    // ... existing logic
+    updateTurn(currentPlayer); // Make sure this is correct
+};

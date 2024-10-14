@@ -92,6 +92,7 @@
             }
 
             currentPlayer = currentPlayer === X ? O : X;
+            updateTurn(currentPlayer);
             return true;
         }
         
@@ -172,13 +173,12 @@
                             const moveMade = gameInstance.makeMove(row, col);
                             if (moveMade) {
                                 renderGame();
-                                playerTurn();
-                            }
+                                updateTurn(gameInstance.currentPlayer);                            }
                         }
                     });
                 }
             }
-            playerTurn();
+            updateTurn(gameInstance.currentPlayer);
         };
 
         const clearBoard = () => {
@@ -199,19 +199,17 @@
             });
         }
 
-        const playerTurn = () => {
-            const playerTurnElement = document.getElementById('playerTurn');
-
-            playerTurnElement.textContent = `Player ${gameInstance.currentPlayer}'s turn`;
-
-        }
-
     renderGame();
     clearBoard();
-    playerTurn();
 
-    return { renderGame, clearBoard, playerTurn }
-}
+    return { renderGame, clearBoard }
+    }
+
+    function updateTurn(currentPlayer) {
+        const playerTurnElement = document.getElementById('playerTurn');
+        playerTurnElement.textContent = `Player ${currentPlayer}'s turn`;
+    }    
+
     const boardInstance = gameBoard();
     const gameInstance = gameController(boardInstance);
     displayGame (boardInstance, gameInstance);
